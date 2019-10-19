@@ -1,0 +1,40 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aframe/0.5.0/aframe.min.js"></script>
+<script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.7.0/dist/aframe-extras.min.js"></script>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Camera Movement</title>
+</head>
+<body>
+<script type="text/javascript">
+	AFRAME.registerComponent("listener", {
+		schema :
+		{
+			stepFactor : {
+				type : "number",
+				default : 0.05
+			}
+		},
+		tick : function()
+		{	this.el.components.camera.camera.parent.position.add(this.el.components.camera.camera.getWorldDirection().multiplyScalar(this.data.stepFactor));
+		}
+	});
+</script>
+<a-scene>
+  <a-camera  listener="stepFactor:0.01" position="0 0 30">
+    <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
+    <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
+    <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
+    <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
+    <a-sky color="#ECECEC"></a-sky>
+    <a-entity id="cursor" cursor="fuse: true;fuseTimeout:500"
+    	material="color:black"
+    	geometry="primitive:ring"
+    	position="0 0 -1"
+    	scale="0.01 0.01 0.01"
+    ></a-entity>
+  </a-camera>
+  <a-grid></a-grid>
+<a-box position="0 1 -2" color="blue" move eve></a-box>
+</body>
+</html>
